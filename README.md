@@ -153,20 +153,7 @@ An interactive Power BI dashboard is included to visualize scenario-level outcom
 
 ----------
 
-## 9. Project Structure
-
-`fairness-rl-distribution-shift/
-│
-├── data/
-│   └── robustness_results.xlsx │
-├── visual/
-│   ├── robustness_reward.png │   └── robustness_gap.png │
-├── environment.py ├── population.py ├── dqn.py ├── plots.py ├── main.py │
-├── requirements.txt └── README.md` 
-
-----------
-
-## 10. Installation
+## 9. Installation
 
 Install dependencies:
 
@@ -174,7 +161,7 @@ Install dependencies:
 
 ----------
 
-## 11. Running the Project
+## 10. Running the Project
 
 Train and evaluate agents:
 
@@ -193,7 +180,7 @@ Outputs are saved to:
 
 ----------
 
-## 12. Technical Contributions
+## 11. Technical Contributions
 
 This project demonstrates:
 -   Custom RL environment design   
@@ -204,7 +191,7 @@ This project demonstrates:
     
 ----------
 
-## 13. Limitations
+## 12. Limitations
 
 -   Synthetic environment (no real-world dataset)    
 -   Simplified attendance model    
@@ -213,7 +200,7 @@ This project demonstrates:
    
 ----------
 
-## 14. Future Work
+## 13. Future Work
 
 -   Multi-objective RL   
 -   Constrained RL optimization    
@@ -223,6 +210,6 @@ This project demonstrates:
     
 ----------
 
-## 15. Disclaimer
+## 14. Disclaimer
 
 This project uses synthetic data for research and demonstration purposes only. It does not represent real patient data or official healthcare modeling.
