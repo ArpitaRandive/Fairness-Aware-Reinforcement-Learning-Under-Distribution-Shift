@@ -145,10 +145,11 @@ This highlights the importance of evaluating RL systems under distribution shift
 
 Plots generated automatically:
 -   Efficiency performance comparison   
+![Performance comparison   ](D:%5CProjects%5CNHS-RL%5Cvisual%5Crobustness_reward.png)
 -   Equity gap comparison    
+![Gap comparison](%22D:%5CProjects%5CNHS-RL%5Cvisual%5Crobustness_gap.png%22)
 
 Example output:
-
 An interactive Power BI dashboard is included to visualize scenario-level outcomes.
 
 ----------
