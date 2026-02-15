@@ -145,9 +145,9 @@ This highlights the importance of evaluating RL systems under distribution shift
 
 Plots generated automatically:
 -   Efficiency performance comparison   
-![Policy Reward Under Distribution Shift](visual/robustness_reward.png)
+![Policy Reward Under Distribution Shift](visuals/robustness_reward.png)
 -   Equity gap comparison    
-![Fairness Gap Under Distribution Shift](visual/robustness_gap.png)
+![Fairness Gap Under Distribution Shift](visuals/robustness_gap.png)
 
 Example output:
 An interactive Power BI dashboard is included to visualize scenario-level outcomes.
