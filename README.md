@@ -1,217 +1,172 @@
+# 🤖 Fairness-Aware Reinforcement Learning Under Distribution Shift
 
-# Fairness-Aware Reinforcement Learning Under Distribution Shift
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Reinforcement Learning-FF6F00?style=for-the-badge&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/Deep Q Network-013243?style=for-the-badge&logo=numpy&logoColor=white" />
+  <img src="https://img.shields.io/badge/Power BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black" />
+</p>
 
-## Executive Summary
+> Investigating the trade-off between **efficiency and fairness** in reinforcement learning under real-world operational shocks.
 
-This project investigates the trade-off between efficiency and fairness in reinforcement learning under distribution shift.
+---
 
-Using a synthetic simulation inspired by public healthcare appointment systems, we evaluate how fairness-aware reward regularization impacts performance under operational shocks such as attendance drops, budget cuts, and intervention effectiveness decay.
+## 📌 Overview
 
-The results demonstrate that fairness-aware policies can improve robustness and reduce disparity under specific disruption scenarios, but introduce measurable efficiency trade-offs in stable environments.
+This project simulates a **public healthcare appointment scheduling system** to evaluate how fairness-aware reward regularization impacts RL agent performance under distribution shift scenarios such as:
 
-----------
+- 📉 Attendance drops
+- 💰 Budget cuts
+- 📊 Intervention effectiveness decay
 
-## 1. Motivation
+Two agents are trained and compared:
+| Agent | Strategy |
+|-------|----------|
+| **Standard Policy** | Maximizes total reward only |
+| **Fairness-Aware Policy** | Adds disparity penalty across socioeconomic groups |
 
-Real-world resource allocation systems — particularly in public services — operate under:
+---
 
--   Uncertain user behavior
--   Budget constraints    
--   Socioeconomic disparities   
--   Operational shocks    
--   Non-stationary environment    
+## 🎯 Key Research Question
 
-Most reinforcement learning systems optimize for efficiency alone. However, in public systems, fairness and equity are critical.
+> *Can we design RL agents that balance efficiency and fairness under distribution shift?*
 
-This project explores:
+---
 
-> Can we design RL agents that balance efficiency and fairness under distribution shift?
+## 🏗️ Environment Design
 
-----------
+### 👥 Population
+Each synthetic patient is characterized by:
+- Age group
+- Deprivation level (low / medium / high)
+- Appointment type
+- Behavioral type & fatigue level
 
-## 2. Problem Formulation
+**Population size:** 20,000 synthetic agents (configurable)
 
-We simulate a stylized appointment allocation environment where:
+### 💊 Interventions (Actions)
+| Action | Description |
+|--------|-------------|
+| None | No intervention |
+| SMS | Basic reminder |
+| Personalized SMS | Targeted reminder |
+| Call | Direct outreach |
+| Escalation | High-priority follow-up |
 
--   Patients have heterogeneous behavioral profiles    
--   Attendance is probabilistic    
--   Interventions have costs and varying effectiveness    
--   Budget is limited    
--   Repeated intervention induces fatigue    
--   Socioeconomic groups exhibit different attendance patterns   
+### 📐 Attendance Model
+```
+P(attend) = base_behavior + intervention_effect - fatigue
+```
 
-The agent must select an intervention for each patient to maximize long-term reward.
+---
 
-----------
+## 🤖 RL Approach — Deep Q-Network (DQN)
 
-## 3. Environment Design
+- ✅ Experience replay buffer
+- ✅ Target network stabilization
+- ✅ Epsilon-greedy exploration
+- ✅ Multi-episode training
 
-### 3.1 Population
+---
 
-Each patient is characterized by:
--   Age group    
--   Deprivation level (low / medium / high)    
--   Appointment type    
--   Behavioral type    
--   Fatigue level
-   
-Population size: configurable (default: 20,000 synthetic agents)
+## ⚖️ Fairness Metric
+```
+Reward Gap = Max(Group Reward) - Min(Group Reward)
+```
+Lower gap = more equitable outcomes across deprivation groups.
 
-----------
+---
 
-### 3.2 Interventions
+## 🔬 Distribution Shift Experiments
 
-Available actions:
--   None  
--   SMS    
--   Personalized SMS    
--   Call    
--   Escalation    
+| Scenario | Description |
+|----------|-------------|
+| **Base** | Nominal operating conditions |
+| **Attendance Drop** | System-wide reduction in attendance probability |
+| **Budget Cut** | Reduced intervention capacity |
+| **Effectiveness Drop** | Intervention effectiveness scaled down |
 
-Each intervention has:
--   Effectiveness boost    
--   Cost    
--   Daily budget constraint
-### 3.3 Attendance Model
+---
 
-Attendance probability is:
+## 📊 Key Findings
 
-`P(attend) = base_behavior + intervention_effect - fatigue` 
+- 🏆 Standard policy achieves slightly higher **base reward**
+- ✅ Fairness-aware policy **reduces disparity** under attendance shocks
+- ✅ Fairness-aware policy **improves equity** under budget cuts
+- ⚠️ Efficiency-fairness trade-offs are **scenario-dependent**
+- 📌 Fairness regularization does **not universally dominate**
 
-Fatigue accumulates when repeated interventions are applied.
+> This highlights the importance of evaluating RL systems under **distribution shift** rather than only in-distribution performance.
 
-----------
+---
 
-## 4. Reinforcement Learning Approach
-
-We implement a Deep Q-Network (DQN) with:
--   Experience replay buffer
--   Target network stabilization    
--   Epsilon-greedy exploration    
--   Multi-episode training
-    
-Two agents are trained:
-
-1.  **Standard Policy**
-    -   Maximizes total reward only.
-        
-2.  **Fairness-Aware Policy**  
-    -   Adds disparity penalty across deprivation groups.
-        
-
-----------
-
-## 5. Fairness Metric
-
-We define fairness as disparity across groups:
-
-`Reward Gap =  Max(Group Reward) -  Min(Group Reward)` 
-
-Lower gap indicates more equitable outcomes.
-
-----------
-
-## 6. Distribution Shift Experiments
-
-We evaluate robustness under:
-
-### Base
-Nominal operating conditions.
-
-### Attendance Drop
-System-wide reduction in attendance probability.
-
-### Budget Cut
-Reduced intervention capacity.
-
-### Effectiveness Drop
-Intervention effectiveness scaled down.
-
-----------
-
-## 7. Key Findings
-
--   Standard policy achieves slightly higher base reward.   
--   Fairness-aware policy reduces disparity under attendance shocks.    
--   Under budget cuts, fairness-aware policy improves equity.    
--   Efficiency-fairness trade-offs are scenario-dependent    
--   Fairness regularization does not universally dominate.
-    
-This highlights the importance of evaluating RL systems under distribution shift rather than only in-distribution performance.
-
-----------
-
-## 8. Results Visualization
+## 📈 Visualizations
 
 Plots generated automatically:
--   Efficiency performance comparison   
-![Policy Reward Under Distribution Shift](visuals/robustness_reward.png)
--   Equity gap comparison    
-![Fairness Gap Under Distribution Shift](visuals/robustness_gap.png)
+- Efficiency performance comparison
+- Policy Reward Under Distribution Shift
+- Equity gap comparison
+- Fairness Gap Under Distribution Shift
+- 📊 Interactive **Power BI Dashboard** for scenario-level outcomes
 
-Example output:
-An interactive Power BI dashboard is included to visualize scenario-level outcomes.
+---
 
+## 🚀 Getting Started
 
-----------
+### Installation
+```bash
+pip install -r requirements.txt
+```
 
-## 9. Installation
-
-Install dependencies:
-
-`pip install -r requirements.txt` 
-
-----------
-
-## 10. Running the Project
-
-Train and evaluate agents:
-
-`python main.py` 
+### Run the Project
+```bash
+python main.py
+```
 
 This will:
--   Train both agents
--   Run robustness comparison    
--   Generate plots    
--   Export Excel file for dashboard
-- 
-Outputs are saved to:
--   `visual/`    
--   `data/`
-    
+1. Train both agents
+2. Run robustness comparison
+3. Generate plots
+4. Export Excel file for dashboard
 
-----------
+### Output Files
+```
+visual/   → plots and charts
+data/     → exported Excel files
+```
 
-## 11. Technical Contributions
+---
 
-This project demonstrates:
--   Custom RL environment design   
--   Fairness-aware reward shaping    
--   Robustness evaluation under distribution shift   
--   Structured experimental comparison   
--   Dashboard-based analytical reporting
-    
-----------
+## 🛠️ Technical Highlights
 
-## 12. Limitations
+- Custom RL environment design
+- Fairness-aware reward shaping
+- Robustness evaluation under distribution shift
+- Structured experimental comparison
+- Dashboard-based analytical reporting
 
--   Synthetic environment (no real-world dataset)    
--   Simplified attendance model    
--   Fairness defined via reward disparity only    
--   No causal inference modeling
-   
-----------
+---
 
-## 13. Future Work
+## ⚠️ Limitations & Future Work
 
--   Multi-objective RL   
--   Constrained RL optimization    
--   Causal modeling of attendance   
--   Real-world healthcare dataset validation    
--   Distributionally robust RL approaches
-    
-----------
+**Current Limitations:**
+- Synthetic environment (no real-world dataset)
+- Simplified attendance model
+- Fairness defined via reward disparity only
 
-## 14. Disclaimer
+**Future Directions:**
+- Multi-objective RL
+- Constrained RL optimization
+- Causal modeling of attendance
+- Real-world healthcare dataset validation
+- Distributionally robust RL approaches
 
-This project uses synthetic data for research and demonstration purposes only. It does not represent real patient data or official healthcare modeling.
+---
+
+## 📝 Disclaimer
+
+This project uses **synthetic data** for research and demonstration purposes only. It does not represent real patient data or official healthcare modeling.
+
+---
+
+<p align="center">Made with ❤️ by <a href="https://github.com/ArpitaRandive">Arpita Randive</a></p>
